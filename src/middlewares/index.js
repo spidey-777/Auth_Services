@@ -1,4 +1,3 @@
 module.exports={
-    AuthValidaterRequest:require('./auth_request_velidater')
-
+    AuthValidaterRequest:require('./auth_request_velidater'),
 }

@@ -1,4 +1,4 @@
-const { User } = require('../models/index');
+const { User,Role } = require('../models/index');
 
 
 class UserRepository {
@@ -45,6 +45,28 @@ class UserRepository {
             throw error;
         }
     }
+    async isAdmin(userId){
+        try {
+            const user = await User.findByPk(userId);  
+            if (!user) {
+                throw new Error("User not found");
+            }
+    
+            const adminRole = await Role.findOne({
+                 where: { name: 'ADMIN' }
+            });
+    
+            if (!adminRole) {
+                throw new Error("Admin role not found");
+            }
+    
+            return await user.hasRole(adminRole); 
+        } catch (error) {
+            console.error("Something went wrong in repo layer", error);
+            throw error;
+        }
+    }
+    
 }
 
 

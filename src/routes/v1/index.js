@@ -1,25 +1,37 @@
 const express = require('express');
-const {AuthValidaterRequest} = require('../../middlewares/index')
+const { AuthValidaterRequest} = require('../../middlewares/index');
 
-const UserContoller = require('../../controllers/user_controller');
+
+const UserController = require('../../controllers/user_controller');
 
 const router = express.Router();
+
+// console.log("validateUserIsAdmin type:", typeof AuthValidaterRequest.validateUserIsAdmin);
+// console.log("UserController.isAdmin type:", typeof UserController.isAdmin);
+
+
 
 
 router.post('/signup',
     AuthValidaterRequest.validateUserAuth,
-    UserContoller.create
+    UserController.create
 )
 
 router.post('/signin',
     AuthValidaterRequest.validateUserAuth,
-    UserContoller.signIn
+    UserController.signIn
 );
 
 
 router.get('/isAuthenticated',
-    UserContoller.isAuthenticated
-)
+    UserController.isAuthenticated
+);
+router.get(
+    '/isadmin',
+    AuthValidaterRequest.validateUserIsAdmin,
+    UserController.isAdmin
+);
+
 
 
 module.exports = router;

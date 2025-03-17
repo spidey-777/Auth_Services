@@ -10,8 +10,19 @@ const validateUserAuth  = (req,res,next)=>{
     }
     next();
 }
- 
+const validateUserIsAdmin = (req, res, next) => {
+    if (!req.body.id) {
+        return res.status(400).json({
+            success: false,
+            err: 'Please provide user ID',
+            message: 'Something went wrong'
+        });
+    }
+    next();
+};
 
-module.exports= {
-    validateUserAuth
-}
+
+module.exports = {
+    validateUserAuth,
+    validateUserIsAdmin 
+} 
